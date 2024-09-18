@@ -554,14 +554,6 @@ video {
   display: none;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
 .mt-4 {
   margin-top: 1rem;
 }
@@ -665,8 +657,8 @@ video {
   --tw-bg-opacity: 0.5;
 }
 
-.bg-\[url\(\'\.\.\/src\/img\/red-bg\.jpg\'\)\] {
-  background-image: url('../src/img/red-bg.jpg');
+.bg-\[url\(\'img\/red-bg\.jpg\'\)\] {
+  background-image: url('img/red-bg.jpg');
 }
 
 .bg-\[length\:600\%\] {

@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* For hiding scrollbars */
+.hidden-scrollbar {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .hidden-scrollbar::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+  }
+  
+  /* For snapping items in a scrolling container */
+  .timepicker-snap {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+  
+  /* Scrollbar width */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Scrollbar track */
+  ::-webkit-scrollbar-track {
+    background: none;
+  }
+  
+  /* Scrollbar handle */
+  ::-webkit-scrollbar-thumb {
+    background: #88888881;
+    border-radius: 20px;
+  }
+  
+  /* Scrollbar handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555555b7;
+  }
+

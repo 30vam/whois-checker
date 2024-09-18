@@ -7,19 +7,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../src/tailwind-output.css">
+    <link rel="stylesheet" href="tailwind-output.css">
 
     <title>Whois Lookup</title>
 </head>
 <body class="h-dvh font-main">
-    <main class="text-white flex items-center justify-center h-full bg-[length:600%] md:bg-cover bg-[url('../src/img/red-bg.jpg')] bg-bottom bg-no-repeat">
+    <main class="text-white flex items-center justify-center h-full bg-[length:600%] md:bg-cover bg-[url('img/red-bg.jpg')] bg-bottom bg-no-repeat">
         <div class="w-[300px] flex flex-col gap-3">
-            <section class="text-xl bg-black bg-opacity-50 py-3 rounded-xl text-center">
+            <section class="py-3 text-xl text-center bg-black bg-opacity-50 rounded-xl">
                 <div>Your IP address is:</div>
-                <div id="user-id-display" class="font-bold text-3xl">Please wait...</div>
+                <div id="user-id-display" class="text-3xl font-bold">Please wait...</div>
             </section>
             <section class="h-[400px] w-full flex text-xl flex-col justify-start items-center lg:h-[500px] bg-black bg-opacity-50 rounded-xl px-2 py-4">
-                <form class="flex gap-2 flex-col items-center w-full" id="domain-form" method="get">
+                <form class="flex flex-col items-center w-full gap-2" id="domain-form" method="get">
                     <input class="rounded-md border-blue-600 transition-all focus:border-opacity-100 border-opacity-50 border-2 text-base w-[90%] text-center text-black focus:outline-none p-1" type="text" autocomplete="off" name="query" placeholder="Enter domain or IP adress..." required>
                     <input class="rounded-lg bg-green-600 transition-all hover:bg-green-800 w-[90%] p-2" type="submit" value="Look up IP/Domain">
                 </form>
@@ -30,6 +30,6 @@
     </main>
 
     <!--Scripts-->
-    <script src="../src/domain-lookup.js"></script>
+    <script src="domain-lookup.js"></script>
 </body>
 </html>

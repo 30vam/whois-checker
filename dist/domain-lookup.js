@@ -50,15 +50,28 @@ const deleteUselessKeys = (domainData) => {
     return domainData;
 }
 
+const createCountryFlag = (countryCode, width) => {
+    const countryFlagSvg = document.createElement('img');
+
+    countryFlagSvg.setAttribute('src', `https://flagcdn.com/${countryCode}.svg`);
+    countryFlagSvg.setAttribute('width', width);
+    countryFlagSvg.setAttribute('alt', `${countryCode.toUpperCase} Flag`);
+
+    countryFlagSvg.classList.add('rounded-xl', 'inline', 'my-2', 'drop-shadow-lg', 'opacity-80', 'hover:scale-110', 'transition-all');
+
+    return countryFlagSvg;
+}
+
 const displayDomainInfo = (domainData) => {
     clearDomainInfoDisplay();
+    const countryCode = domainData.countryISO2.toLowerCase();
     domainData = deleteUselessKeys(domainData);
 
     for (const key in domainData) {
         const newInfoDiv = document.createElement('div');
         const infoTitleSpan = document.createElement('div');
         const infoText = document.createElement('div');
-        newInfoDiv.classList.add('w-[95%]', 'bg-red-300', 'bg-opacity-10', 'backdrop-blur-sm', 'rounded-xl', 'p-2');
+        newInfoDiv.classList.add('w-[95%]', 'bg-red-300', 'bg-opacity-10', 'backdrop-blur-sm', 'rounded-xl', 'p-2', 'shadow-lg', key); // Give a class based on the related key 
         infoTitleSpan.classList.add('font-semibold', 'text-2xl');
         
         let infoTitle = key.replace(/([a-z])([A-Z])/g, '$1 $2'); // Make info names appear not in camelCase
@@ -70,6 +83,11 @@ const displayDomainInfo = (domainData) => {
         newInfoDiv.append(infoTitleSpan, infoText);
         domainInfoWrapper.append(newInfoDiv);
     }
+
+    // Add country flag image
+    const countryDiv = domainInfoWrapper.querySelector('.country');
+    const countryFlag = createCountryFlag(countryCode, 96);
+    countryDiv.appendChild(countryFlag);
 }
 
 // Request-Related Async Functions
@@ -105,7 +123,6 @@ const fetchDomainInfo = async (query = '', event = null) => {
 
     } catch (error) {
         // This will catch any errors thrown during the fetch or when processing the response.
-        console.error('An error occurred:', error);
         showErrorOnDisplay(`${error.message}.`);
     }
 }

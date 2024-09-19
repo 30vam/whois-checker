@@ -35,6 +35,7 @@ const displayDomainInfo = (domainData) => {
 const fetchDomainInfo = async (query = '', event = null) => { 
     let domainLookupEndpoint;
 
+    // Different API endpoints for domains and client ip/info
     if (!query) {
         domainLookupEndpoint = `https://app.ipworld.info/api/iplocation?apikey=873dbe322aea47f89dcf729dcc8f60e8`;
     } else {
@@ -42,23 +43,24 @@ const fetchDomainInfo = async (query = '', event = null) => {
     }
 
     try {
-        const response = await fetch(domainLookupEndpoint);
+        const response = await fetch(domainLookupEndpoint);  // Try to get a response from API
 
         // Check if response is OK before trying to parse its JSON
         if (!response.ok) {
             const errorData = await response.json(); // Parse error message if response is not okay
-            const errorText = `Status code: ${response.status}\nError message: ${errorData.Message || 'No additional error information.'}`;
+            const errorText = `Status code: ${errorData.status}\nError message: ${errorData.Message || 'No additional error information.'}`;
             showErrorOnDisplay(errorText);
             throw new Error(errorText);
         }
 
-        const data = await response.json(); // Now, we can safely parse the success response
+        // If the response was ok, we can safely parse the success response
+        const data = await response.json(); 
         
-        if (!query) {
+        // Update user IP if query was empty
+        if (!query)
             userIdDisplay.innerText = data.ip;
-        }
 
-        displayDomainInfo(data);
+        displayDomainInfo(data);  // Display all domain/user info in a readable manner
 
     } catch (error) {
         // This will catch any errors thrown during the fetch or when processing the response.

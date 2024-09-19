@@ -18,11 +18,41 @@ const showErrorOnDisplay = (errorText) => {
     domainInfoWrapper.append(errorDiv);
 }
 
+const deleteUselessKeys = (domainData) => {
+    const keysToDelete = [
+        'zipCode', 
+        'accuracyRadius', 
+        'flag', 
+        'countryGeoNameId', 
+        'network', 
+        'countryNativeName', 
+        'stateGeoNameId', 
+        'continentCode', 
+        'currencyNamePlural', 
+        'cityGeoNameId', 
+        'numOfCities', 
+        'currencySymbol', 
+        'isEU', 
+        'countryTLD', 
+        'metroCode', 
+        'continentGeoNameId', 
+        'stateCode', 
+        'countryISO2', 
+        'numOfStates', 
+        'countryISO3', 
+        'currencyCode', 
+        'currencySymbolNative',
+        'asNo', 
+        'status'
+    ];
+    
+    keysToDelete.forEach(key => { delete domainData[key]; });  // Remove the unnecessary info from data
+    return domainData;
+}
+
 const displayDomainInfo = (domainData) => {
     clearDomainInfoDisplay();
-
-    /*remember to remove the keys you dont need first*/
-    delete domainData['status'];
+    domainData = deleteUselessKeys(domainData);
 
     for (const key in domainData) {
         const newInfoDiv = document.createElement('div');

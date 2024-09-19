@@ -56,7 +56,18 @@ const displayDomainInfo = (domainData) => {
 
     for (const key in domainData) {
         const newInfoDiv = document.createElement('div');
-        newInfoDiv.innerText = `${key}: ${domainData[key]}`;
+        const infoTitleSpan = document.createElement('div');
+        const infoText = document.createElement('div');
+        newInfoDiv.classList.add('w-[95%]', 'bg-red-300', 'bg-opacity-10', 'backdrop-blur-sm', 'rounded-xl', 'p-2');
+        infoTitleSpan.classList.add('font-semibold', 'text-2xl');
+        
+        let infoTitle = key.replace(/([a-z])([A-Z])/g, '$1 $2'); // Make info names appear not in camelCase
+        infoTitle = infoTitle.charAt(0).toUpperCase() + infoTitle.slice(1)  // Capitalize the first words 1st letter too
+        
+        // Add the texts to divs and divs to their wrappers
+        infoTitleSpan.innerText = `${infoTitle}:`;
+        infoText.innerText = domainData[key];
+        newInfoDiv.append(infoTitleSpan, infoText);
         domainInfoWrapper.append(newInfoDiv);
     }
 }

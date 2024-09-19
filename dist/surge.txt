@@ -1,0 +1,5 @@
+RUN Surge:(Write this in terminal from the dist folder of the project)
+powershell -ExecutionPolicy Bypass -File C:\Users\khoda\AppData\Roaming\npm\surge.ps1
+REDEPLOY ON THE SAME DOMAIN:
+
+

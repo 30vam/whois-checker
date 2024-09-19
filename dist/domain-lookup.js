@@ -33,36 +33,37 @@ const displayDomainInfo = (domainData) => {
 
 // Request-Related Async Functions
 const fetchDomainInfo = async (query = '', event = null) => { 
-    console.log(query);
-    const domainLookupEndpoint = `http://ip-api.com/json/${query}?fields=255963`;
+    let domainLookupEndpoint;
+
+    if (!query) {
+        domainLookupEndpoint = `https://app.ipworld.info/api/iplocation?apikey=873dbe322aea47f89dcf729dcc8f60e8`;
+    } else {
+        domainLookupEndpoint = `https://app.ipworld.info/api/iplocation?apikey=873dbe322aea47f89dcf729dcc8f60e8&ip=${query}`;
+    }
+
     try {
         const response = await fetch(domainLookupEndpoint);
-        // Check response status and throw error if the res wasn't ok
+
+        // Check if response is OK before trying to parse its JSON
         if (!response.ok) {
-            const errorText = `Bad response. Status code: ${response.status}`;
+            const errorData = await response.json(); // Parse error message if response is not okay
+            const errorText = `Status code: ${response.status}\nError message: ${errorData.Message || 'No additional error information.'}`;
             showErrorOnDisplay(errorText);
             throw new Error(errorText);
         }
 
-        const data = await response.json();
-        // This checks if the parsed data was vaild, for example the domain exists or not
-        if (data.status === 'success') {
-            // When the page starts, show user ip
-            if (query === '') {
-                userIdDisplay.innerText = data.query;
-            } 
-
-            console.log(data);
-            displayDomainInfo(data);
-        } else {
-            console.log(`There was a problem with parsing the response: ${data.message}`)
-            showErrorOnDisplay(`Invalid query, are you sure '${data.query}' actually exists?`);
+        const data = await response.json(); // Now, we can safely parse the success response
+        
+        if (!query) {
+            userIdDisplay.innerText = data.ip;
         }
-    } 
-    catch (error) {
-        const errorText = `Error caught when trying to fetch data: ${error}`;
-        console.log(errorText);
-        showErrorOnDisplay(errorText);
+
+        displayDomainInfo(data);
+
+    } catch (error) {
+        // This will catch any errors thrown during the fetch or when processing the response.
+        console.error('An error occurred:', error);
+        showErrorOnDisplay(`${error.message}.`);
     }
 }
 
